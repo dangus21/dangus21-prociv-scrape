@@ -1,6 +1,6 @@
 import puppeteer from 'puppeteer';
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const browser = await puppeteer.launch({
         headless: true,
         args: [
