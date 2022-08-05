@@ -52,7 +52,9 @@ export async function getStaticProps() {
     while (loadMoreVisible) {
         await page
             .click('#listOcorrenciasDetails > table > tfoot > tr > th > span')
-            .catch(() => {});
+            .catch((e) => {
+                console.log(e);
+            });
         await page.evaluate(() => {
             const element = document.querySelector(
                 '#listOcorrenciasDetails > table > tfoot > tr > th > span'
@@ -77,6 +79,5 @@ export async function getStaticProps() {
 }
 
 export default function Home(props) {
-    console.log('LOG ~ file: index.tsx ~ line 5 ~ props', props);
     return <div>{!props ? <p>Loading...</p> : <img src={props.blob} />}</div>;
 }

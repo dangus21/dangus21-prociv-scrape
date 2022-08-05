@@ -10,6 +10,7 @@ module.exports = {
         'plugin:import/warnings',
         'plugin:import/typescript',
         'prettier',
+        'plugin:@next/next/recommended',
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
