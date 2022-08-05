@@ -4,9 +4,9 @@
   "private": true,
   "main": "",
   "scripts": {
-    "dev": "yarn pre && next dev",
+    "dev": "npm run pre && next dev",
     "build": "next build",
-    "start": "yarn pre next start",
+    "start": "npm run pre next start",
     "export": "next export",
     "lint": "next lint",
     "pre": "node node_modules/puppeteer/install.js"
