@@ -3,9 +3,7 @@ import puppeteer from 'puppeteer';
 
 export default async function scrape(req, res) {
     try {
-        const browser = await puppeteer.launch({
-            executablePath: 'src/chrome.exe',
-        });
+        const browser = await puppeteer.launch();
         // const browser = await puppeteer.launch();
 
         const page = await browser.newPage();

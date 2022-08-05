@@ -4,11 +4,12 @@
   "private": true,
   "main": "",
   "scripts": {
-    "dev": "next dev",
+    "dev": "yarn pre && next dev",
     "build": "next build",
-    "start": "next start",
+    "start": "yarn pre next start",
     "export": "next export",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pre": "node node_modules/puppeteer/install.js"
   },
   "dependencies": {
     "@types/node": "^18.6.4",
