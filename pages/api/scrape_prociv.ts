@@ -1,8 +1,12 @@
 import puppeteer from 'puppeteer';
+// import chromium from 'chrome-aws-lambda';
 
 export default async function scrape(req, res) {
     try {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            executablePath: 'src/chrome.exe',
+        });
+        // const browser = await puppeteer.launch();
 
         const page = await browser.newPage();
 
@@ -30,10 +34,7 @@ export default async function scrape(req, res) {
             }
         });
 
-        const isElementVisible = async (
-            page: puppeteer.Page,
-            cssSelector: string
-        ) => {
+        const isElementVisible = async (page, cssSelector: string) => {
             let visible = true;
             await page
                 .waitForSelector(cssSelector, { visible: true, timeout: 2000 })
