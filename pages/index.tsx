@@ -53,6 +53,7 @@ export async function getStaticProps() {
         await page
             .click('#listOcorrenciasDetails > table > tfoot > tr > th > span')
             .catch((e) => {
+                // eslint-disable-next-line no-console
                 console.log(e);
             });
         await page.evaluate(() => {
