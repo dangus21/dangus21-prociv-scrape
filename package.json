@@ -17,6 +17,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",
     "next": "12.2.4",
+    "playwright": "^1.24.2",
     "prettier": "^2.7.1",
     "puppeteer-core": "^16.0.0",
     "react": "18.2.0",
