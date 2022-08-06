@@ -1,9 +1,17 @@
 import puppeteer from 'puppeteer';
+import chrome from 'chrome-aws-lambda';
 // import chromium from 'chrome-aws-lambda';
-
 export default async function scrape(req, res) {
     try {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch(
+            process.env.NODE_ENV === 'production'
+                ? {
+                      args: chrome.args,
+                      executablePath: await chrome.executablePath,
+                      headless: chrome.headless,
+                  }
+                : { args: ['--no-sandbox', '--disable-setuid-sandbox'] }
+        );
         // const browser = await puppeteer.launch();
 
         const page = await browser.newPage();
