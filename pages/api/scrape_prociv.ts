@@ -14,14 +14,19 @@ export default async function scrape(req, res) {
             'http://www.prociv.pt/pt-pt/SITUACAOOPERACIONAL/Paginas/default.aspx?cID=11'
         );
 
-        await page.waitForFunction(
-            () =>
-                (
-                    document.querySelector(
-                        '#listOcorrenciasDetails tbody'
-                    ) as HTMLElement
-                ).childElementCount || 0 > 0
-        );
+        try {
+            await page.waitForFunction(
+                () =>
+                    (
+                        document.querySelector(
+                            '#listOcorrenciasDetails tbody'
+                        ) as HTMLElement
+                    ).childElementCount || 0 > 0
+            );
+        } catch (error) {
+            // eslint-disable-next-line no-console
+            console.log(error);
+        }
 
         await page.evaluate(() => {
             const element = document.querySelector(

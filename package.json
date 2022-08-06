@@ -4,7 +4,7 @@
   "private": true,
   "main": "",
   "scripts": {
-    "dev": "npm run pre && next dev",
+    "dev": "npm install && npm run pre && next dev",
     "build": "next build",
     "start": "npm run pre next start",
     "export": "next export",
@@ -18,7 +18,6 @@
     "eslint-plugin-prettier": "^4.2.1",
     "next": "12.2.4",
     "prettier": "^2.7.1",
-    "puppeteer": "^16.0.0",
     "puppeteer-core": "^16.0.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -31,6 +30,7 @@
     "@typescript-eslint/eslint-plugin": "^5.32.0",
     "@typescript-eslint/parser": "^5.32.0",
     "eslint": "8.21.0",
-    "eslint-config-next": "12.2.4"
+    "eslint-config-next": "12.2.4",
+    "puppeteer": "^16.0.0"
   }
 }
