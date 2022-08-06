@@ -3,7 +3,10 @@ import puppeteer from 'puppeteer';
 
 export default async function scrape(req, res) {
     try {
-        const browser = await puppeteer.launch();
+        const browser = await puppeteer.launch({
+            headless: false,
+            args: ['--no-sandbox'],
+        });
         // const browser = await puppeteer.launch();
 
         const page = await browser.newPage();
