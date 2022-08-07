@@ -7,8 +7,6 @@ export function ScrapedImage() {
         if (!hasRan.current) {
             fetch('/api/scrape_prociv')
                 .then((res) => {
-                    // eslint-disable-next-line no-console
-                    console.log('LOG ~ file: index.tsx ~ line 10 ~ res', res);
                     return res.json();
                 })
                 .then((res) => setData(res.blob))
@@ -18,6 +16,16 @@ export function ScrapedImage() {
         }
     }, [hasRan.current]);
 
-    // eslint-disable-next-line @next/next/no-img-element
-    return <div>{!data ? <p>Loading...</p> : <img src={data} />}</div>;
+    return (
+        <div>
+            {!data ? (
+                <p>Loading...</p>
+            ) : data.status === 200 ? (
+                'Reload page'
+            ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={data} />
+            )}
+        </div>
+    );
 }
