@@ -148,12 +148,9 @@ export default async function screenshot(req, res) {
     );
 
     while (loadMoreVisible) {
-        await page
-            .click('#listOcorrenciasDetails > table > tfoot > tr > th > span')
-            .catch((e) => {
-                // eslint-disable-next-line no-console
-                console.log(e);
-            });
+        await page.click(
+            '#listOcorrenciasDetails > table > tfoot > tr > th > span'
+        );
         await page.evaluate(() => {
             const element = document.querySelector(
                 '#listOcorrenciasDetails > table > tfoot > tr > th > span'
