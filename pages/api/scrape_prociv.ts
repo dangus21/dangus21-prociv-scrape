@@ -136,6 +136,14 @@ export default async function screenshot(req, res) {
 
     const isElementVisible = async (page, cssSelector: string) => {
         let visible = true;
+        if (
+            (await page.$(
+                '#listOcorrenciasDetails > table > tfoot > tr > th > span'
+            )) !== null
+        ) {
+            visible = false;
+            return visible;
+        }
         await page
             .waitForSelector(cssSelector, { visible: true, timeout: 2000 })
             .catch(() => {
