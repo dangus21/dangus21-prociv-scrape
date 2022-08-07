@@ -7,6 +7,7 @@ export function ScrapedImage() {
         if (!hasRan.current) {
             fetch('/api/scrape_prociv')
                 .then((res) => {
+                    // eslint-disable-next-line no-console
                     console.log('LOG ~ file: index.tsx ~ line 10 ~ res', res);
                     return res.json();
                 })
