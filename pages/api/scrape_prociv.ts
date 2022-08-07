@@ -99,9 +99,11 @@ export default async function screenshot(req, res) {
               args: chrome.args,
               executablePath: await chrome.executablePath,
               headless: chrome.headless,
+              ignoreDefaultArgs: ['--disable-extensions'],
           }
         : {
               args: [],
+              ignoreDefaultArgs: ['--disable-extensions'],
               executablePath:
                   process.platform === 'win32'
                       ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'

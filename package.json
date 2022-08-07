@@ -32,5 +32,8 @@
     "eslint-config-next": "12.2.4",
     "prettier": "^2.7.1",
     "@types/puppeteer-core": "2.0.0"
+  },
+  "engines": {
+    "node": "14.1.0"
   }
 }
