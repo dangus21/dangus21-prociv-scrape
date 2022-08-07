@@ -134,8 +134,12 @@ export default async function screenshot(req, res) {
         }
     });
 
-    const isElementVisible = async (page, cssSelector: string) => {
+    const isElementVisible = async (
+        page: puppeteer.Page,
+        cssSelector: string
+    ) => {
         let visible = true;
+        page.waitForTimeout(1000);
         if (
             (await page.$(
                 '#listOcorrenciasDetails > table > tfoot > tr > th > span'
