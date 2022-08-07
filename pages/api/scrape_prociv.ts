@@ -1,5 +1,6 @@
-import puppeteer from 'puppeteer';
+// import puppeteer from 'puppeteer';
 import chrome from 'chrome-aws-lambda';
+import puppeteer from 'puppeteer-core';
 // import chromium from 'chrome-aws-lambda';
 // async function scrape(req, res) {
 //     try {
