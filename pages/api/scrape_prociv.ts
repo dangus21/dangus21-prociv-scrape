@@ -118,14 +118,20 @@ export default async function screenshot(req, res) {
     await page.goto(
         'http://www.prociv.pt/pt-pt/SITUACAOOPERACIONAL/Paginas/default.aspx?cID=11'
     );
-    await page.waitForFunction(
-        () =>
-            (
-                document.querySelector(
-                    '#listOcorrenciasDetails tbody'
-                ) as HTMLElement
-            ).childElementCount || 0 > 0
-    );
+
+    try {
+        await page.waitForFunction(
+            () =>
+                (
+                    document.querySelector(
+                        '#listOcorrenciasDetails tbody'
+                    ) as HTMLElement
+                ).childElementCount || 0 > 0
+        );
+    } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+    }
 
     await page.evaluate(() => {
         const element = document.querySelector('#listOcorrenciasDetails tbody');
@@ -134,20 +140,8 @@ export default async function screenshot(req, res) {
         }
     });
 
-    const isElementVisible = async (
-        page: puppeteer.Page,
-        cssSelector: string
-    ) => {
+    const isElementVisible = async (page, cssSelector: string) => {
         let visible = true;
-        // page.waitForTimeout(1000);
-        // if (
-        //     (await page.$(
-        //         '#listOcorrenciasDetails > table > tfoot > tr > th > span'
-        //     )) !== null
-        // ) {
-        //     visible = false;
-        //     return visible;
-        // }
         await page
             .waitForSelector(cssSelector, { visible: true, timeout: 2000 })
             .catch(() => {
@@ -160,11 +154,13 @@ export default async function screenshot(req, res) {
         page,
         '#listOcorrenciasDetails > table > tfoot > tr > th > span'
     );
-
     while (loadMoreVisible) {
-        await page.click(
-            '#listOcorrenciasDetails > table > tfoot > tr > th > span'
-        );
+        await page
+            .click('#listOcorrenciasDetails > table > tfoot > tr > th > span')
+            .catch((e) => {
+                // eslint-disable-next-line no-console
+                console.log(e);
+            });
         await page.evaluate(() => {
             const element = document.querySelector(
                 '#listOcorrenciasDetails > table > tfoot > tr > th > span'
@@ -178,7 +174,6 @@ export default async function screenshot(req, res) {
             '#listOcorrenciasDetails > table > tfoot > tr > th > span'
         );
     }
-
     const screenshot = await page.screenshot({ encoding: 'base64' });
 
     await browser.close();
