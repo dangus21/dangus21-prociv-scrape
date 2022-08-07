@@ -6,7 +6,10 @@ export function ScrapedImage() {
     useEffect(() => {
         if (!hasRan.current) {
             fetch('/api/scrape_prociv')
-                .then((res) => res.json())
+                .then((res) => {
+                    console.log('LOG ~ file: index.tsx ~ line 10 ~ res', res);
+                    return res.json();
+                })
                 .then((res) => setData(res.blob))
                 // eslint-disable-next-line no-console
                 .catch((err) => console.log(err));
