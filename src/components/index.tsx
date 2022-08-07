@@ -20,7 +20,7 @@ export function ScrapedImage() {
         <div>
             {!data ? (
                 <p>Loading...</p>
-            ) : data.status === 200 ? (
+            ) : data.status !== 200 ? (
                 'Reload page'
             ) : (
                 // eslint-disable-next-line @next/next/no-img-element
