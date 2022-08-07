@@ -139,15 +139,15 @@ export default async function screenshot(req, res) {
         cssSelector: string
     ) => {
         let visible = true;
-        page.waitForTimeout(1000);
-        if (
-            (await page.$(
-                '#listOcorrenciasDetails > table > tfoot > tr > th > span'
-            )) !== null
-        ) {
-            visible = false;
-            return visible;
-        }
+        // page.waitForTimeout(1000);
+        // if (
+        //     (await page.$(
+        //         '#listOcorrenciasDetails > table > tfoot > tr > th > span'
+        //     )) !== null
+        // ) {
+        //     visible = false;
+        //     return visible;
+        // }
         await page
             .waitForSelector(cssSelector, { visible: true, timeout: 2000 })
             .catch(() => {
