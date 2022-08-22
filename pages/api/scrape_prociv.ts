@@ -69,8 +69,10 @@ export default async function screenshot(req, res) {
             page,
             '#listOcorrenciasDetails > table > tfoot > tr > th > span'
         );
+        let tries = 5;
         try {
-            while (loadMoreVisible) {
+            while (loadMoreVisible && tries !== 0) {
+                tries--;
                 loadMoreVisible = await isElementVisible(
                     page,
                     '#listOcorrenciasDetails > table > tfoot > tr > th > span'
