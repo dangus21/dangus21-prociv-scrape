@@ -2,7 +2,6 @@
   "name": "prociv-scrape",
   "version": "0.1.0",
   "private": true,
-  "main": "",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -34,6 +33,6 @@
     "prettier": "^2.7.1"
   },
   "engines": {
-    "node": "14.1.0"
+    "node": "14.20.0"
   }
 }
