@@ -1,30 +1,33 @@
-// import puppeteer from 'puppeteer';
-import chrome from 'chrome-aws-lambda';
-import puppeteer from 'puppeteer-core';
+import puppeteer from 'puppeteer';
+// import chrome from 'chrome-aws-lambda';
+// import puppeteer from 'puppeteer-core';
 
 export default async function screenshot(req, res) {
     let page: puppeteer.Page;
     let browser: puppeteer.Browser;
     try {
-        const options = process.env.AWS_REGION
-            ? {
-                  args: chrome.args,
-                  executablePath: await chrome.executablePath,
-                  headless: chrome.headless,
-                  ignoreDefaultArgs: ['--disable-extensions'],
-              }
-            : {
-                  args: [],
-                  ignoreDefaultArgs: ['--disable-extensions'],
-                  executablePath:
-                      process.platform === 'win32'
-                          ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
-                          : process.platform === 'linux'
-                          ? '/usr/bin/google-chrome'
-                          : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-              };
+        // process.env.AWS_REGION
+        //     ? {
+        //           args: chrome.args,
+        //           executablePath: await chrome.executablePath,
+        //           headless: chrome.headless,
+        //           ignoreDefaultArgs: ['--disable-extensions'],
+        //       }
+        //     : {
+        //           args: [],
+        //           ignoreDefaultArgs: ['--disable-extensions'],
+        //           executablePath:
+        //               process.platform === 'win32'
+        //                   ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+        //                   : process.platform === 'linux'
+        //                   ? '/usr/bin/google-chrome'
+        //                   : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+        //       };
 
-        browser = await puppeteer.launch(options);
+        browser = await puppeteer.connect({
+            browserWSEndpoint:
+                'wss://browserless-production-88ba.up.railway.app/',
+        });
         page = await browser.newPage();
         await page.setViewport({ width: 1920, height: 1080 });
         await page.goto(
