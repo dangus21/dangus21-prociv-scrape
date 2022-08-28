@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "chrome-aws-lambda": "^10.1.0",
+    "cross-env": "^7.0.3",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-prettier": "^4.2.1",

@@ -6,28 +6,22 @@ export default async function screenshot(req, res) {
     let page: puppeteer.Page;
     let browser: puppeteer.Browser;
     try {
-        // process.env.AWS_REGION
-        //     ? {
-        //           args: chrome.args,
-        //           executablePath: await chrome.executablePath,
-        //           headless: chrome.headless,
-        //           ignoreDefaultArgs: ['--disable-extensions'],
-        //       }
-        //     : {
-        //           args: [],
-        //           ignoreDefaultArgs: ['--disable-extensions'],
-        //           executablePath:
-        //               process.platform === 'win32'
-        //                   ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
-        //                   : process.platform === 'linux'
-        //                   ? '/usr/bin/google-chrome'
-        //                   : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-        //       };
-
-        browser = await puppeteer.connect({
-            browserWSEndpoint:
-                'wss://browserless-production-88ba.up.railway.app/',
-        });
+        if (process.env.PROD) {
+            browser = await puppeteer.connect({
+                browserWSEndpoint: process.env.BROWSERLESS,
+            });
+        } else {
+            browser = await puppeteer.launch({
+                args: [],
+                ignoreDefaultArgs: ['--disable-extensions'],
+                executablePath:
+                    process.platform === 'win32'
+                        ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+                        : process.platform === 'linux'
+                        ? '/usr/bin/google-chrome'
+                        : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+            });
+        }
         page = await browser.newPage();
         await page.setViewport({ width: 1920, height: 1080 });
         await page.goto(
