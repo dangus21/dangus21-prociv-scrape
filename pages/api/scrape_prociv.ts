@@ -1,27 +1,30 @@
-import puppeteer from 'puppeteer';
-// import chrome from 'chrome-aws-lambda';
-// import puppeteer from 'puppeteer-core';
+// import puppeteer from 'puppeteer';
+import chrome from 'chrome-aws-lambda';
+import puppeteer from 'puppeteer-core';
 
 export default async function screenshot(req, res) {
     let page: puppeteer.Page;
     let browser: puppeteer.Browser;
     try {
-        if (process.env.PROD) {
-            browser = await puppeteer.connect({
-                browserWSEndpoint: process.env.BROWSERLESS,
-            });
-        } else {
-            browser = await puppeteer.launch({
-                args: [],
-                ignoreDefaultArgs: ['--disable-extensions'],
-                executablePath:
-                    process.platform === 'win32'
-                        ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
-                        : process.platform === 'linux'
-                        ? '/usr/bin/google-chrome'
-                        : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-            });
-        }
+        const options = process.env.AWS_REGION
+            ? {
+                  args: chrome.args,
+                  executablePath: await chrome.executablePath,
+                  headless: chrome.headless,
+                  ignoreDefaultArgs: ['--disable-extensions'],
+              }
+            : {
+                  args: [],
+                  ignoreDefaultArgs: ['--disable-extensions'],
+                  executablePath:
+                      process.platform === 'win32'
+                          ? 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe'
+                          : process.platform === 'linux'
+                          ? '/usr/bin/google-chrome'
+                          : '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
+              };
+
+        browser = await puppeteer.launch(options);
         page = await browser.newPage();
         await page.setViewport({ width: 1920, height: 1080 });
         await page.goto(
